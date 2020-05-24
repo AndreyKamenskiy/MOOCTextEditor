@@ -64,10 +64,22 @@ public abstract class Document {
 	 */
 	protected int countSyllables(String word)
 	{
-		// TODO: Implement this method so that you can call it from the 
-	    // getNumSyllables method in BasicDocument (module 2) and 
-	    // EfficientDocument (module 3).
-	    return 0;
+		int sylls = 0;
+		boolean previousWovel = false;
+		int len = word.length();
+		for (int i = 0; i < len; i++) {
+			char ch = Character.toLowerCase(word.charAt(i));
+			if ("aeiouy".indexOf(ch) >= 0) {
+				if (!previousWovel && !(ch == 'e' && i == len - 1 && sylls > 0) ) {
+					sylls++;
+					//System.out.print(ch + " ");
+					previousWovel = true;
+				}
+			} else {
+				previousWovel = false;
+			}
+		}
+	    return sylls;
 	}
 	
 	/** A method for testing
@@ -130,14 +142,15 @@ public abstract class Document {
 	/** return the Flesch readability score of this document */
 	public double getFleschScore()
 	{
-	    // TODO: You will play with this method in week 1, and 
-		// then implement it in week 2
-
+		double words = getNumWords();
 		
-	    return text.length();
+		if (words < 1) {
+			return 0;
+		}
+		double fScore = 206.835 - 1.015 * (words / getNumSentences()) - 84.6 * (getNumSyllables() / words);
+		
+	    return fScore;
 	    
 	}
-	
-	
 	
 }

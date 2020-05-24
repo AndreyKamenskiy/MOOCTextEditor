@@ -72,8 +72,7 @@ public class EfficientDocument extends Document {
 	 */
 	@Override
 	public int getNumSentences() {
-		//TODO: write this method.  Hint: It's simple
-		return 0;
+		return getTokens("[^.!?]+([.!?]+|\\z)").size();
 	}
 
 	
@@ -93,8 +92,7 @@ public class EfficientDocument extends Document {
 	 */
 	@Override
 	public int getNumWords() {
-		//TODO: write this method.  Hint: It's simple
-	    return 0;
+	    return getTokens("[a-zA-Z]+").size();
 	}
 
 
@@ -115,8 +113,12 @@ public class EfficientDocument extends Document {
 	 */
 	@Override
 	public int getNumSyllables() {
-        //TODO: write this method.  Hint: It's simple
-        return 0;
+		List<String> wordsList = getTokens("[a-zA-Z]+");
+		int sylls = 0;
+		for (String word : wordsList) {
+			sylls += countSyllables(word);
+		}
+        return sylls;
 	}
 	
 	// Can be used for testing
