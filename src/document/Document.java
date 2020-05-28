@@ -72,7 +72,6 @@ public abstract class Document {
 			if ("aeiouy".indexOf(ch) >= 0) {
 				if (!previousWovel && !(ch == 'e' && i == len - 1 && sylls > 0) ) {
 					sylls++;
-					//System.out.print(ch + " ");
 					previousWovel = true;
 				}
 			} else {
